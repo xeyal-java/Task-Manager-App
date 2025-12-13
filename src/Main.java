@@ -33,7 +33,7 @@ public class Main {
                     System.out.println("Task added successfully!");
                 }
 
-                case 2 -> {
+                case 2 -> {//Remove ucun
                     System.out.print("Enter task ID to remove: ");
                     int id = Integer.parseInt(sc.nextLine());
                     boolean removed = Taskmanager.removeTask(id);
