@@ -1,13 +1,17 @@
 import TaskManagerApp.Task;
 import TaskManagerApp.TaskManager;
+import TaskManagerApp.taskTool;
 
 import java.util.Scanner;
+
+import static TaskManagerApp.taskTool.*;
 
 public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         var Taskmanager = new TaskManager();
+        taskTool taskTool = new taskTool();
         boolean running = true;
 
         while (running) {
@@ -24,82 +28,17 @@ public class Main {
             int choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
-                case 1 -> {
-                    System.out.print("Enter title: ");
-                    String title = sc.nextLine();
-                    System.out.print("Enter description: ");
-                    String description = sc.nextLine();
-                    Taskmanager.addTask(title, description);
-                    System.out.println("Task added successfully!");
-                }
-
-                case 2 -> {
-                    System.out.print("Enter task ID to remove: ");
-                    int id = Integer.parseInt(sc.nextLine());
-                    boolean removed = Taskmanager.removeTask(id);
-                    if (removed) {
-                        System.out.println("Task removed successfully!");
-                    } else {
-                        System.out.println("No task found with ID " + id);
-                    }
-                }
-
-                case 3 -> {
-                    System.out.print("Enter task ID to update: ");
-                    int id = Integer.parseInt(sc.nextLine());
-                    Task task = Taskmanager.getTaskById(id);
-                    if (task != null) {
-                        System.out.print("Enter new title: ");
-                        String newTitle = sc.nextLine();
-                        System.out.print("Enter new description: ");
-                        String newDesc = sc.nextLine();
-                        task.setTitle(newTitle);
-                        task.setDescription(newDesc);
-                        System.out.println("Task updated successfully!");
-                    } else {
-                        System.out.println("No task found with ID " + id);
-                    }
-                }
-
-                case 4 -> {
-                    System.out.print("Enter task ID to mark as completed: ");
-                    int id = Integer.parseInt(sc.nextLine());
-                    Task task = Taskmanager.getTaskById(id);
-                    if (task != null) {
-                        task.markAsCompleted();
-                        System.out.println("Task marked as completed!");
-                    } else {
-                        System.out.println("No task found with ID " + id);
-                    }
-                }
-
-                case 5 -> Taskmanager.getAllTasks();
-
-                case 6 -> {
-                    System.out.print("Enter keyword: ");
-                    String keyword = sc.nextLine();
-                    Taskmanager.search(keyword);
-                }
-
-                case 7 -> {
-                    System.out.print("Are you sure? (yes/no): ");
-                    String answer = sc.nextLine();
-                    if (answer.equalsIgnoreCase("yes")) {
-                        Taskmanager.clearAll();
-                        System.out.println("All tasks cleared!");
-                    }else if
-                        (answer.equalsIgnoreCase("No")){
-                        System.out.println("Task was not deleted");
-                    }
-                }
-
-                case 8 -> {
-                    running = false;
-                    System.out.println("Program stopped.");
-                }
-
+                case 1 -> addTask(sc,Taskmanager);
+                case 2 -> removeTask(sc, Taskmanager);
+                case 3 -> updateTask(sc, Taskmanager);
+                case 4 -> markCompleted(sc, Taskmanager);
+                case 5 -> showAll(Taskmanager);
+                case 6 -> search(sc, Taskmanager);
+                case 7 -> clearAll(sc, Taskmanager);
+                case 8 -> exitProgram();
                 default -> System.out.println("Invalid choice, try again.");
             }
-}
+
+        }
 }
 }
